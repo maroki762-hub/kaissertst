@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080e1c">
+  <title>ONLINE PvP FIGHT — Arena Zero</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="game" aria-label="لعبة قتال"></canvas>
+
+    <section id="hud" class="hidden">
+      <div class="fighter-hud player-hud">
+        <div class="fighter-meta"><span class="fighter-name">KAISSER</span><span class="level">LV. 12</span></div>
+        <div class="bar health"><i id="p-health"></i></div>
+        <div class="bar stamina"><i id="p-stamina"></i></div>
+        <div class="hud-stats"><span id="p-health-text">100 / 100</span><span>PLAYER 1</span></div>
+      </div>
+      <div class="match-center">
+        <div class="round-label">RANKED MATCH · ARENA 07</div>
+        <div id="timer">99</div>
+        <div id="round">ROUND 1</div>
+      </div>
+      <div class="fighter-hud enemy-hud">
+        <div class="fighter-meta"><span class="level">LV. 10</span><span class="fighter-name">VORTEX</span></div>
+        <div class="bar health"><i id="e-health"></i></div>
+        <div class="bar stamina"><i id="e-stamina"></i></div>
+        <div class="hud-stats"><span>CPU FIGHTER</span><span id="e-health-text">100 / 100</span></div>
+      </div>
+    </section>
+
+    <div id="combo" class="combo hidden"><b id="combo-count">2</b><span>HIT COMBO</span></div>
+    <div id="message" class="message hidden"></div>
+
+    <section id="start-screen" class="overlay">
+      <div class="menu-panel">
+        <div class="eyebrow">NEXT GENERATION COMBAT</div>
+        <h1>ONLINE <span>PvP</span><br>FIGHT</h1>
+        <p class="subtitle">ادخل الحلبة، قاتل بذكاء، وكن بطل الساحة.</p>
+        <div class="menu-tags"><span>⚡ FAST COMBAT</span><span>🥊 1 VS 1</span><span>🏆 RANKED ARENA</span></div>
+        <button id="play-btn" class="primary-btn">تدرب ضد الكمبيوتر <b>←</b></button>
+        <button id="online-btn" class="primary-btn online-btn">ONLINE PvP — العب مع الناس</button>
+        <button id="how-btn" class="secondary-btn">طريقة اللعب</button>
+        <div class="menu-foot">ARENA ZERO <i>•</i> SEASON 01</div>
+      </div>
+    </section>
+
+    <section id="online-screen" class="overlay hidden">
+      <div class="menu-panel compact online-panel">
+        <div class="eyebrow">REAL-TIME MULTIPLAYER</div>
+        <h2>ONLINE PvP</h2>
+        <p class="subtitle">أنشئ غرفة خاصة أو ابحث عن خصم عشوائي.</p>
+        <div id="online-status" class="online-status">جارٍ الاتصال بالسيرفر...</div>
+        <button id="create-room-btn" class="primary-btn">إنشاء غرفة خاصة</button>
+        <div class="join-row">
+          <input id="room-code-input" maxlength="6" placeholder="كود الغرفة" autocomplete="off">
+          <button id="join-room-btn" class="secondary-btn">دخول</button>
+        </div>
+        <button id="random-match-btn" class="primary-btn">⚔ بحث عن لاعب عشوائي</button>
+        <div id="room-info" class="room-info hidden">
+          <span>كود دعوتك</span><strong id="room-code">------</strong>
+          <button id="copy-room-btn" class="secondary-btn">نسخ الكود</button>
+          <span id="waiting-text">بانتظار اللاعب الثاني...</span>
+        </div>
+        <div class="rank-box">
+          <div class="rank-title">🏆 ترتيب اللاعبين</div>
+          <ol id="leaderboard"><li>يتم تحميل الترتيب...</li></ol>
+        </div>
+        <button id="online-back-btn" class="secondary-btn">رجوع</button>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="overlay hidden">
+      <div class="menu-panel compact">
+        <div class="eyebrow">MATCH PAUSED</div><h2>إيقاف مؤقت</h2>
+        <button id="resume-btn" class="primary-btn">متابعة القتال</button>
+        <button id="restart-btn" class="secondary-btn">إعادة المباراة</button>
+        <button id="home-btn" class="secondary-btn">القائمة الرئيسية</button>
+      </div>
+    </section>
+
+    <section id="result-screen" class="overlay hidden">
+      <div class="menu-panel compact">
+        <div class="eyebrow">MATCH RESULT</div><h2 id="result-title">VICTORY</h2>
+        <p id="result-desc">أداء رائع! لقد سيطرت على الحلبة.</p>
+        <div class="reward">🏆 <strong id="reward-value">+250</strong> XP</div>
+        <button id="again-btn" class="primary-btn">العب مجدداً</button>
+        <button id="result-home-btn" class="secondary-btn">القائمة الرئيسية</button>
+      </div>
+    </section>
+
+    <section id="how-screen" class="overlay hidden">
+      <div class="menu-panel compact">
+        <div class="eyebrow">FIGHTER MANUAL</div><h2>طريقة اللعب</h2>
+        <div class="instructions">
+          <p><kbd>A</kbd> <kbd>D</kbd> الحركة يميناً ويساراً</p>
+          <p><kbd>W</kbd> قفز · <kbd>S</kbd> دفاع</p>
+          <p><kbd>J</kbd> لكمة · <kbd>K</kbd> ركلة قوية</p>
+          <p><kbd>L</kbd> ضربة خاصة · <kbd>SHIFT</kbd> اندفاع</p>
+          <p><kbd>ESC</kbd> إيقاف مؤقت</p>
+        </div>
+        <button id="how-back-btn" class="primary-btn">فهمت، لنبدأ</button>
+      </div>
+    </section>
+
+    <div id="mobile-controls" class="hidden">
+      <div class="move-pad">
+        <button data-key="a">◀</button><button data-key="w">▲</button><button data-key="d">▶</button>
+      </div>
+      <div class="action-pad">
+        <button data-key="s" class="guard">دفاع</button>
+        <button data-key="j">لكم</button><button data-key="k">ركل</button><button data-key="l" class="special">خاص</button>
+      </div>
+    </div>
+
+    <button id="pause-btn" class="pause-btn hidden" aria-label="إيقاف مؤقت">Ⅱ</button>
+    <div class="bottom-hint">A / D MOVE <i>·</i> J PUNCH <i>·</i> K KICK <i>·</i> L SPECIAL</div>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>\n  <script src="game.js"></script>\n  <script src="online.js"></script>
+</body>
+</html>
